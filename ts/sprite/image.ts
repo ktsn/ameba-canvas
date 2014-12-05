@@ -17,7 +17,7 @@ module AmebaCanvas {
     private clipHeight: number;
 
     image: HTMLElement;
-    layer: HTMLCanvasElement;
+    layer: Layer;
 
     constructor(image: HTMLElement, x: number, y: number);
     constructor(image: HTMLElement, x: number, y: number, width?: number, height?: number) {

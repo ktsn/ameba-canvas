@@ -13,7 +13,7 @@ module AmebaCanvas {
     endAngle: number;
     anticlockwise: boolean;
     style: Style;
-    layer: HTMLCanvasElement;
+    layer: Layer;
 
     constructor(x: number, y: number, radius: number);
     constructor(x: number, y: number, radius: number, startAngle?: number, endAngle?: number, anticlockwise: boolean = false) {

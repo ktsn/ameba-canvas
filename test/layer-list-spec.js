@@ -29,8 +29,8 @@ describe('LayerList', function() {
     it('should insert a layer to given index', function() {
       var existing = layerList.getLayer(0);
       layerList.addLayer(0);
-      expect(container.childNodes[0]).not.toEqual(existing);
-      expect(container.childNodes[1]).toEqual(existing);
+      expect(container.childNodes[0]).not.toEqual(existing.el);
+      expect(container.childNodes[1]).toEqual(existing.el);
     });
   });
 
@@ -42,8 +42,8 @@ describe('LayerList', function() {
     });
 
     it('should get a layer by given index', function() {
-      expect(layerList.getLayer(0)).toEqual(container.childNodes[0]);
-      expect(layerList.getLayer(1)).toEqual(container.childNodes[1]);
+      expect(layerList.getLayer(0).el).toEqual(container.childNodes[0]);
+      expect(layerList.getLayer(1).el).toEqual(container.childNodes[1]);
     });
   });
 

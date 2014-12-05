@@ -16,7 +16,7 @@ module AmebaCanvas {
       this.sprites.splice(index, 1);
     }
 
-    getSpritesForLayer(layer: HTMLCanvasElement) : Sprite[] {
+    getSpritesForLayer(layer: Layer) : Sprite[] {
       return this.sprites.filter((s) => s.layer == layer);
     }
   }

@@ -8,7 +8,7 @@ module AmebaCanvas {
   export interface Sprite {
     x: number;
     y: number;
-    layer: HTMLCanvasElement;
+    layer: Layer;
 
     paint(context: CanvasRenderingContext2D, layer: HTMLCanvasElement);
   }

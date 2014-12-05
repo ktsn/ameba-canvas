@@ -13,8 +13,7 @@ module AmebaCanvas {
     container: HTMLElement;
     layerWidth: number;
     layerHeight: number;
-    layers: HTMLCanvasElement[] = [];
-    layerAges: number[] = [];
+    layers: Layer[] = [];
 
     constructor(container: HTMLElement) {
       this.container = container;
@@ -32,49 +31,34 @@ module AmebaCanvas {
       return this.layers.length;
     }
 
-    getLayer(index: number) : HTMLCanvasElement {
+    getLayer(index: number) : Layer {
       return this.layers[index];
     }
 
-    addLayer(index: number) : HTMLCanvasElement {
-      var layer = LayerList.createLayer(this.layerWidth, this.layerHeight);
+    addLayer(index: number) : Layer {
+      var layer = new Layer(this.layerWidth, this.layerHeight);
       this.layers.splice(index, 0, layer);
 
       // insert the new layer to DOM tree
-      this.container.insertBefore(layer, this.container.children[index]);
+      this.container.insertBefore(layer.el, this.container.childNodes[index]);
 
-      this.layerAges.splice(index, 0, 0);
       return layer;
     }
 
-    getIndexForLayer(layer: HTMLCanvasElement) : number {
+    getIndexForLayer(layer: Layer) : number;
+    getIndexForLayer(layer: HTMLCanvasElement) : number;
+    getIndexForLayer(layer: any) : number {
       for (var i = 0, len = this.layers.length; i < len; i++) {
-        if (this.layers[i] === layer) {
+        if (this.layers[i] === layer || this.layers[i].el === layer) {
           return i;
         }
       }
       return -1;
     }
 
-    resetAge(index: number) {
-      this.layerAges[index] = 0;
-    }
-
-    grow(index: number) {
-      this.layerAges[index]++;
-    }
-
     getDivideThreshold(index: number) {
-      var threshold = kInitialThreshold - kWeight * this.layerAges[index];
+      var threshold = kInitialThreshold - kWeight * this.layers[index].age;
       return Math.max(kMinimumThreshold, threshold);
-    }
-
-    private static createLayer(width: number, height: number) : HTMLCanvasElement {
-      var layer: HTMLCanvasElement = document.createElement('canvas');
-      layer.style.position = 'absolute';
-      layer.width = width;
-      layer.height = height;
-      return layer;
     }
   }
 }

@@ -13,7 +13,7 @@ module AmebaCanvas {
     x: number;
     y: number;
     style: Style;
-    layer: HTMLCanvasElement;
+    layer: Layer;
 
     constructor(x: number, y: number) {
       this.x = x;

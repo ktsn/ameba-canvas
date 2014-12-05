@@ -11,7 +11,7 @@ module AmebaCanvas {
     text: string;
     maxWidth: number;
     style: Style;
-    layer: HTMLCanvasElement;
+    layer: Layer;
 
     constructor(text: string, x: number, y: number, maxWidth: number = null) {
       this.text = text;
