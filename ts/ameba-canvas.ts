@@ -40,7 +40,9 @@ module AmebaCanvas {
       }
     }
 
-    redrawLayer(layer: HTMLCanvasElement) {
+    redrawLayer(layer: Layer);
+    redrawLayer(layer: HTMLCanvasElement);
+    redrawLayer(layer: any) {
       var index = this.layerList.getIndexForLayer(layer);
       this.redrawLayerForIndex(index);
     }
