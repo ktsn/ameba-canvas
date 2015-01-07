@@ -14,7 +14,9 @@ describe('SpriteList', function() {
     });
 
     it('should add a sprite', function() {
-      var sprite = AmebaCanvas.Drawing(0, 0);
+      var sprite = {
+        paint: function(ctx) {}
+      };
       spriteList.addSprite(sprite);
       expect(spriteList.sprites.length).toEqual(1);
     });
@@ -27,7 +29,9 @@ describe('SpriteList', function() {
       spriteList = new AmebaCanvas.SpriteList();
       _sprites = [];
       for (var i = 0; i < 5; i++) {
-        var sprite = AmebaCanvas.Drawing(0, 0);
+        var sprite = {
+          paint: function(ctx) {}
+        };;
         _sprites.push(sprite);
         spriteList.addSprite(sprite);
       }
@@ -62,15 +66,19 @@ describe('SpriteList', function() {
       sprites = [];
       var sprite;
       for (var i = 0; i < 2; i++) {
-        sprite = new AmebaCanvas.Drawing(0, 0);
-        sprite.layer = layers[0];
+        sprite = {
+          paint: function(ctx) {}
+        };
         spriteList.addSprite(sprite);
+        sprite._layer = layers[0];
         sprites.push(sprite);
       }
 
-      sprite = new AmebaCanvas.Drawing(1, 1);
-      sprite.layer = layers[1];
+      sprite = {
+        paint: function(ctx) {}
+      };
       spriteList.addSprite(sprite);
+      sprite._layer = layers[1];
       sprites.push(sprite);
     });
 
