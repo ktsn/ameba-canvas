@@ -17,7 +17,7 @@ module AmebaCanvas {
     }
 
     getSpritesForLayer(layer: Layer) : Sprite[] {
-      return this.sprites.filter((s) => s.layer == layer);
+      return this.sprites.filter((s) => s._layer == layer);
     }
   }
 }

@@ -10,14 +10,23 @@ module AmebaCanvas {
     layerList: LayerList;
     spriteList = new SpriteList();
 
-    constructor(container: HTMLElement) {
+    thresholdClosure = (ageSum: number) : number => {
+      var threshold = 100 - ageSum;
+      return Math.max(10, threshold);
+    };
+
+    constructor(container: HTMLElement, threshold?: (number) => number) {
       this.container = container;
       this.layerList = new LayerList(container);
+      if (threshold != null) {
+        this.thresholdClosure = threshold;
+      }
     }
 
     addSprite(sprite: Sprite) {
       this.spriteList.addSprite(sprite);
       var layer = this.layerList.getLayer(this.layerList.length - 1);
+      sprite._age = -1;
       Canvas.drawSprite(sprite, layer);
     }
 
@@ -30,10 +39,9 @@ module AmebaCanvas {
       this.clearLayer(index);
 
       var layer = this.layerList.getLayer(index);
-      layer.age++;
       var sprites = this.spriteList.getSpritesForLayer(layer);
 
-      if (sprites.length > this.layerList.getDivideThreshold(index)) {
+      if (sprites.length > this.getDivideThreshold(layer)) {
         this.divideLayer(index);
       } else {
         sprites.forEach((sprite) => Canvas.drawSprite(sprite, layer));
@@ -54,7 +62,6 @@ module AmebaCanvas {
 
     divideLayer(index: number) {
       var layer = this.layerList.getLayer(index);
-      layer.age = 0;
       var sprites = this.spriteList.getSpritesForLayer(layer);
       var newLayer = this.layerList.insertLayer(index + 1);
       var spritesLength = sprites.length;
@@ -68,9 +75,15 @@ module AmebaCanvas {
       }
     }
 
+    private getDivideThreshold(layer: Layer) : number {
+      var sprites = this.spriteList.getSpritesForLayer(layer);
+      return this.thresholdClosure(sprites.reduce((sum, sprite) => sum + sprite._age, 0));
+    }
+
     private static drawSprite(sprite: Sprite, layer: Layer) {
-      sprite.paint(layer.ctx, layer.el);
-      sprite.layer = layer;
+      sprite.paint(layer.ctx);
+      sprite._age += 1;
+      sprite._layer = layer;
     }
   }
 }

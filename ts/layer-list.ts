@@ -5,10 +5,6 @@
  */
 
 module AmebaCanvas {
-  var kInitialThreshold = 50;
-  var kWeight = 1;
-  var kMinimumThreshold = 10;
-
   export class LayerList {
     container: HTMLElement;
     layerWidth: number;
@@ -54,11 +50,6 @@ module AmebaCanvas {
         }
       }
       return -1;
-    }
-
-    getDivideThreshold(index: number) {
-      var threshold = kInitialThreshold - kWeight * this.layers[index].age;
-      return Math.max(kMinimumThreshold, threshold);
     }
   }
 }

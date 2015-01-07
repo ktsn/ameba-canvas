@@ -8,7 +8,6 @@ module AmebaCanvas {
   export class Layer {
     el: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
-    age: number;
 
     constructor(width: number, height: number) {
       var el = document.createElement('canvas');
