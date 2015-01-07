@@ -31,5 +31,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('build', ['typescript:base']);
+  grunt.registerTask('test', ['karma:unit']);
   grunt.registerTask('default', ['watch']);
 };
