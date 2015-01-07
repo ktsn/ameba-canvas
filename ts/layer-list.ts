@@ -24,7 +24,7 @@ module AmebaCanvas {
       this.layerWidth = container.clientWidth;
       this.layerHeight = container.clientHeight;
 
-      this.addLayer(0);
+      this.insertLayer(0);
     }
 
     get length() : number {
@@ -35,7 +35,7 @@ module AmebaCanvas {
       return this.layers[index];
     }
 
-    addLayer(index: number) : Layer {
+    insertLayer(index: number) : Layer {
       var layer = new Layer(this.layerWidth, this.layerHeight);
       this.layers.splice(index, 0, layer);
 

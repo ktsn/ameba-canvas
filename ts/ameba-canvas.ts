@@ -56,7 +56,7 @@ module AmebaCanvas {
       var layer = this.layerList.getLayer(index);
       layer.age = 0;
       var sprites = this.spriteList.getSpritesForLayer(layer);
-      var newLayer = this.layerList.addLayer(index + 1);
+      var newLayer = this.layerList.insertLayer(index + 1);
       var spritesLength = sprites.length;
       var divideIndex = Math.floor(spritesLength / 2);
 

@@ -15,20 +15,20 @@ describe('LayerList', function() {
     expect(container.childNodes.length).toEqual(1);
   });
 
-  describe('addLayer', function() {
+  describe('insertLayer', function() {
     beforeEach(function() {
       container = document.createElement('div');
       layerList = new AmebaCanvas.LayerList(container);
     });
 
     it('should add a layer', function() {
-      layerList.addLayer(0);
+      layerList.insertLayer(0);
       expect(container.childNodes.length).toEqual(2);
     });
 
     it('should insert a layer to given index', function() {
       var existing = layerList.getLayer(0);
-      layerList.addLayer(0);
+      layerList.insertLayer(0);
       expect(container.childNodes[0]).not.toEqual(existing.el);
       expect(container.childNodes[1]).toEqual(existing.el);
     });
@@ -38,7 +38,7 @@ describe('LayerList', function() {
     beforeEach(function() {
       container = document.createElement('div');
       layerList = new AmebaCanvas.LayerList(container);
-      layerList.addLayer(0);
+      layerList.insertLayer(0);
     });
 
     it('should get a layer by given index', function() {
@@ -52,7 +52,7 @@ describe('LayerList', function() {
       container = document.createElement('div');
       layerList = new AmebaCanvas.LayerList(container);
       for (var i = 0; i < 5; i++) {
-        layerList.addLayer(0);
+        layerList.insertLayer(0);
       }
     });
 
