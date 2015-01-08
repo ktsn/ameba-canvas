@@ -8,11 +8,15 @@ module AmebaCanvas {
   export class SpriteList {
     sprites: Sprite[] = [];
 
-    addSprite(sprite: Sprite) {
+    add(sprite: Sprite) {
       this.sprites.push(sprite);
     }
 
-    removeSprite(index: number) {
+    insert(sprite: Sprite, index: number) {
+      this.sprites.splice(index, 0, sprite);
+    }
+
+    remove(index: number) {
       this.sprites.splice(index, 1);
     }
 

@@ -24,14 +24,14 @@ module AmebaCanvas {
     }
 
     addSprite(sprite: Sprite) {
-      this.spriteList.addSprite(sprite);
+      this.spriteList.add(sprite);
       var layer = this.layerList.getLayer(this.layerList.length - 1);
       sprite._age = -1;
       Canvas.drawSprite(sprite, layer);
     }
 
     removeSprite(index: number) {
-      this.spriteList.removeSprite(index);
+      this.spriteList.remove(index);
       this.redrawLayerForIndex(index);
     }
 
