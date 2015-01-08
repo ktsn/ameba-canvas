@@ -31,6 +31,15 @@ module AmebaCanvas {
       return this.layers[index];
     }
 
+    findByElement(element: HTMLCanvasElement) : Layer {
+      for (var i = 0, len = this.layers.length; i < len; i++) {
+        if (this.layers[i].el === element) {
+          return this.layers[i];
+        }
+      }
+      return null;
+    }
+
     insertLayer(index: number) : Layer {
       var layer = new Layer(this.layerWidth, this.layerHeight);
       this.layers.splice(index, 0, layer);
@@ -41,11 +50,11 @@ module AmebaCanvas {
       return layer;
     }
 
-    getIndexForLayer(layer: Layer) : number;
-    getIndexForLayer(layer: HTMLCanvasElement) : number;
-    getIndexForLayer(layer: any) : number {
+    getIndex(layer: Layer) : number;
+    getIndex(element: HTMLCanvasElement) : number;
+    getIndex(arg: any) : number {
       for (var i = 0, len = this.layers.length; i < len; i++) {
-        if (this.layers[i] === layer || this.layers[i].el === layer) {
+        if (this.layers[i] === arg || this.layers[i].el === arg) {
           return i;
         }
       }

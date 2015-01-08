@@ -31,39 +31,35 @@ module AmebaCanvas {
     }
 
     removeSprite(index: number) {
+      var sprite = this.spriteList.get(index);
       this.spriteList.remove(index);
-      this.redrawLayerForIndex(index);
+      this.redrawLayer(sprite._layer);
     }
 
-    redrawLayerForIndex(index: number) {
-      this.clearLayer(index);
 
-      var layer = this.layerList.getLayer(index);
+    private redrawLayer(layer: Layer);
+    private redrawLayer(element: HTMLCanvasElement);
+    private redrawLayer(arg: any) {
+      var layer: Layer;
+      if (arg instanceof HTMLCanvasElement) {
+        layer = this.layerList.findByElement(arg);
+      } else {
+        layer = arg;
+      }
+
+      Canvas.clearLayer(layer);
+
       var sprites = this.spriteList.getSpritesForLayer(layer);
-
       if (sprites.length > this.getDivideThreshold(layer)) {
-        this.divideLayer(index);
+        this.divideLayer(layer);
       } else {
         sprites.forEach((sprite) => Canvas.drawSprite(sprite, layer));
       }
     }
 
-    redrawLayer(layer: Layer);
-    redrawLayer(layer: HTMLCanvasElement);
-    redrawLayer(layer: any) {
-      var index = this.layerList.getIndexForLayer(layer);
-      this.redrawLayerForIndex(index);
-    }
-
-    clearLayer(index: number) {
-      var layer = this.layerList.getLayer(index);
-      layer.ctx.clearRect(0, 0, layer.width, layer.height);
-    }
-
-    divideLayer(index: number) {
-      var layer = this.layerList.getLayer(index);
+    private divideLayer(layer: Layer) {
       var sprites = this.spriteList.getSpritesForLayer(layer);
-      var newLayer = this.layerList.insertLayer(index + 1);
+      var newLayer = this.layerList.insertLayer(this.layerList.getIndex(layer) + 1);
       var spritesLength = sprites.length;
       var divideIndex = Math.floor(spritesLength / 2);
 
@@ -78,6 +74,10 @@ module AmebaCanvas {
     private getDivideThreshold(layer: Layer) : number {
       var sprites = this.spriteList.getSpritesForLayer(layer);
       return this.thresholdClosure(sprites.reduce((sum, sprite) => sum + sprite._age, 0));
+    }
+
+    private static clearLayer(layer: Layer) {
+      layer.ctx.clearRect(0, 0, layer.width, layer.height);
     }
 
     private static drawSprite(sprite: Sprite, layer: Layer) {

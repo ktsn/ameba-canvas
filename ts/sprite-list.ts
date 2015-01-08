@@ -20,6 +20,10 @@ module AmebaCanvas {
       this.sprites.splice(index, 1);
     }
 
+    get(index: number) : Sprite {
+      return this.sprites[index];
+    }
+
     getSpritesForLayer(layer: Layer) : Sprite[] {
       return this.sprites.filter((s) => s._layer == layer);
     }

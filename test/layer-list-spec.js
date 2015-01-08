@@ -47,7 +47,20 @@ describe('LayerList', function() {
     });
   });
 
-  describe('getIndexForLayer', function() {
+  describe('findByElement', function() {
+    beforeEach(function() {
+      container = document.createElement('div');
+      layerList = new AmebaCanvas.LayerList(container);
+      layerList.insertLayer(0);
+      layerList.insertLayer(0);
+    });
+
+    it('should return the layer that has the given element', function() {
+      expect(layerList.findByElement(container.childNodes[1])).toEqual(layerList.layers[1]);
+    });
+  });
+
+  describe('getIndex', function() {
     beforeEach(function() {
       container = document.createElement('div');
       layerList = new AmebaCanvas.LayerList(container);
@@ -57,12 +70,13 @@ describe('LayerList', function() {
     });
 
     it('should return the index of given layer', function() {
-      expect(layerList.getIndexForLayer(container.childNodes[3])).toEqual(3);
+      expect(layerList.getIndex(layerList.layers[2])).toEqual(2);
+      expect(layerList.getIndex(container.childNodes[3])).toEqual(3);
     });
 
     it('should return -1 if the layer is invalid', function() {
       var invalidLayer = document.createElement('canvas');
-      expect(layerList.getIndexForLayer(invalidLayer)).toEqual(-1);
+      expect(layerList.getIndex(invalidLayer)).toEqual(-1);
     });
   });
 
