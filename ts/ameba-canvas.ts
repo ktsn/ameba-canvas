@@ -36,6 +36,9 @@ module AmebaCanvas {
       this.redrawLayer(sprite._layer);
     }
 
+    updateSprite(sprite: Sprite) {
+      this.redrawLayer(sprite._layer);
+    }
 
     private redrawLayer(layer: Layer);
     private redrawLayer(element: HTMLCanvasElement);
