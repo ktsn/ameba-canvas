@@ -27,6 +27,13 @@ module AmebaCanvas {
       return this.layers.length;
     }
 
+    setSize(width: number, height: number) {
+      this.layers.forEach((layer) => {
+        layer.width = width;
+        layer.height = height;
+      });
+    }
+
     getLayer(index: number) : Layer {
       return this.layers[index];
     }

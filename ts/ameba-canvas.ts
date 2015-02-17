@@ -34,6 +34,11 @@ module AmebaCanvas {
       this.redrawLayer(sprite._layer);
     }
 
+    setSize(width: number, height: number) {
+      this.layerList.setSize(width, height);
+      this.layerList.layers.forEach(this.redrawLayer);
+    }
+
     private redrawLayer(layer: Layer);
     private redrawLayer(element: HTMLCanvasElement);
     private redrawLayer(arg: any) {
