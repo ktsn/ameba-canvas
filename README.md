@@ -8,6 +8,7 @@ Please build the project by following command (Requires Grunt).
 The compiled JS file is at `/js/ameba-canvas.js`
 
 ```bash
+$ npm install
 $ grunt build
 ```
 
