@@ -9,24 +9,18 @@ module AmebaCanvas {
     container: HTMLElement;
     layerList: LayerList;
     spriteList = new SpriteList();
+    private thSeed: number;
 
-    thresholdClosure = (ageSum: number) : number => {
-      var threshold = 100 - ageSum;
-      return Math.max(10, threshold);
-    };
-
-    constructor(container: HTMLElement, threshold?: (number) => number) {
+    constructor(container: HTMLElement, thSeed: number) {
       this.container = container;
       this.layerList = new LayerList(container);
-      if (threshold != null) {
-        this.thresholdClosure = threshold;
-      }
+      this.thSeed = thSeed || 1000;
     }
 
     addSprite(sprite: Sprite) {
       this.spriteList.add(sprite);
       var layer = this.layerList.getLayer(this.layerList.length - 1);
-      sprite._age = -1;
+      sprite._age = 0;
       Canvas.drawSprite(sprite, layer);
     }
 
@@ -75,8 +69,17 @@ module AmebaCanvas {
     }
 
     private getDivideThreshold(layer: Layer) : number {
-      var sprites = this.spriteList.getSpritesForLayer(layer);
-      return this.thresholdClosure(sprites.reduce((sum, sprite) => sum + sprite._age, 0));
+      var maxAge: number, layerAge: number;
+      var sprites: Sprite[] = this.spriteList.sprites;
+
+      maxAge = layerAge = 0;
+      sprites.forEach((s) => {
+        maxAge += s._age;
+        if (s._layer === layer) {
+          layerAge += s._age;
+        }
+      });
+      return this.thSeed * (1 - layerAge / maxAge);
     }
 
     private static clearLayer(layer: Layer) {
