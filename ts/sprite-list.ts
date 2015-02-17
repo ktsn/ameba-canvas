@@ -25,7 +25,17 @@ module AmebaCanvas {
     }
 
     getSpritesForLayer(layer: Layer) : Sprite[] {
-      return this.sprites.filter((s) => s._layer == layer);
+      var sprites: Sprite[] = [];
+
+      for (var i = this.sprites.length - 1; i >= 0; i--) {
+        if (this.sprites[i]._layer === layer) {
+          sprites.unshift(this.sprites[i]);
+        } else if (sprites.length > 0) {
+          break;
+        }
+      }
+
+      return sprites;
     }
   }
 }
